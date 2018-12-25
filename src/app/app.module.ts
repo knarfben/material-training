@@ -28,7 +28,7 @@ import { WelcomeComponent } from './training/welcome/welcome.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule 
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
