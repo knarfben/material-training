@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './training/welcome/welcome.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { LoginReactiveComponent } from './auth/login-reactive/login-reactive.component';
 import { TrainingComponent } from './training/training.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'login-reactive', component: LoginReactiveComponent},
   { path: 'training', component: TrainingComponent}
 
 ];
