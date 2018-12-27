@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="openSidenav">
+        <p>I'm the sidenav</p>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <button (click)="openSidenav = true">Show sidenav</button>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
