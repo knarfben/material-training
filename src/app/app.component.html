@@ -1,9 +1,44 @@
 <mat-sidenav-container>
-    <mat-sidenav [(opened)]="openSidenav">
-        <p>I'm the sidenav</p>
+    <mat-sidenav #sidenav role="navigation">
+        <mat-nav-list>
+            <a mat-list-item (click)="sidenav.close()"
+                routerLink="/signup"
+            >
+                <mat-icon>face</mat-icon>
+                <span class="nav-caption">Signup</span>
+            </a>
+            <a mat-list-item routerLink="/login" (click)="sidenav.close()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span class="nav-caption">Login</span>
+            </a>
+            <a mat-list-item routerLink="/training" (click)="sidenav.close()">
+                <mat-icon>directions_run</mat-icon>
+                <span class="nav-caption">Training</span>
+            </a>
+            <mat-list-item (click)="sidenav.close()">
+                <button mat-icon-button>
+                    <mat-icon>eject</mat-icon>
+                    <span class="nav-caption">Logout</span>
+                </button>
+            </mat-list-item>
+        </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <button (click)="openSidenav = true">Show sidenav</button>
+        <mat-toolbar color="primary">
+            <div fxHide.gt-xs>
+                <button mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <div>
+                <a routerLink="/">LOGO</a>
+            </div>
+            <div fxFlex fxHide.xs align="end" fxLayoutGap="10px">
+                <a routerLink="/signup">Signup</a>
+                <a routerLink="/login">Login</a>
+                <a routerLink="/training">Training</a>
+            </div>
+        </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
