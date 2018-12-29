@@ -12,7 +12,7 @@ import { TrainingComponent } from './training/training.component';
 import { CurrentTrainingComponent } from './training/current-training/current-training.component';
 import { NewTrainingComponent } from './training/new-training/new-training.component';
 import { PastTrainingsComponent } from './training/past-trainings/past-trainings.component';
-import { WelcomeComponent } from './training/welcome/welcome.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginReactiveComponent } from './auth/login-reactive/login-reactive.component';
 import { HeaderComponent } from './navigation/header/header.component';
