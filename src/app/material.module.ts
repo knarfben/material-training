@@ -5,7 +5,6 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
-  MatNativeDateModule,
   MatCheckboxModule,
   MatSidenavModule,
   MatToolbarModule,
@@ -14,6 +13,8 @@ import {
   MatCardModule,
   MatSelectModule,
   MatProgressSpinnerModule,
+  MatNativeDateModule,
+  MatDialog,
   MatDialogModule
 } from "@angular/material"
 
