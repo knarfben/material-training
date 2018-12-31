@@ -8,15 +8,16 @@ import { Exercise } from '../exercise.model'
   styleUrls: ['./new-training.component.scss']
 })
 export class NewTrainingComponent implements OnInit {
-  @Output() newTrainingEvent = new EventEmitter<void>()
+  torture = 'burpees'
   exercises: Exercise[]
   constructor(private trainingService: TrainingService) {}
 
   ngOnInit() {
-    this.exercises = this.trainingService.availableExercises
+    this.exercises = this.trainingService.getAvailableExercises()
   }
 
   onStartTraining() {
-    this.newTrainingEvent.emit()
+    console.log('selectedId:' + this.torture)
+    this.trainingService.startExercise(this.torture)
   }
 }

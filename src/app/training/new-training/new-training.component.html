@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content fxLayoutAlign="center">
       <mat-form-field>
-        <mat-select placeholder="Select torture">
+        <mat-select placeholder="Select torture" [(value)]="torture">
           <mat-option
             *ngFor="let exercise of exercises"
             [value]="exercise.id"
