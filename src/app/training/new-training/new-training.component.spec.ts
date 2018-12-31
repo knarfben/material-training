@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { NewTrainingComponent } from './new-training.component'
-
+// will commit
 describe('NewTrainingComponent', () => {
   let component: NewTrainingComponent
   let fixture: ComponentFixture<NewTrainingComponent>
