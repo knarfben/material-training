@@ -3,6 +3,7 @@ import { Subject } from 'rxjs'
 
 export class TrainingService {
   private runningExercise: Exercise
+  private exercises: Exercise[] = []
   changeExercise = new Subject<Exercise>()
   private availableExercises: Exercise[] = [
     { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
@@ -22,6 +23,32 @@ export class TrainingService {
     this.runningExercise = this.availableExercises.find(
       ex => ex.id === selectedId
     )
-    this.changeExercise.next(this.runningExercise)
+    this.changeExercise.next({ ...this.runningExercise })
+  }
+
+  getRunningExercise() {
+    return { ...this.runningExercise }
+  }
+
+  completeExercise() {
+    this.exercises.push({
+      ...this.runningExercise,
+      date: new Date(),
+      state: 'completed'
+    })
+    this.runningExercise = null
+    this.changeExercise.next(null)
+  }
+
+  cancelExercise(progress: number) {
+    this.exercises.push({
+      ...this.runningExercise,
+      duration: (this.runningExercise.duration * progress) / 100,
+      calories: (this.runningExercise.calories * progress) / 100,
+      date: new Date(),
+      state: 'cancelled'
+    })
+    this.runningExercise = null
+    this.changeExercise.next(null)
   }
 }

@@ -8,7 +8,7 @@ import { Exercise } from '../exercise.model'
   styleUrls: ['./new-training.component.scss']
 })
 export class NewTrainingComponent implements OnInit {
-  torture = 'burpees'
+  torture
   exercises: Exercise[]
   constructor(private trainingService: TrainingService) {}
 
