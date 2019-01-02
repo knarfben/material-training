@@ -4,14 +4,14 @@ import {
   EventEmitter,
   Output,
   OnDestroy
-} from "@angular/core"
-import { AuthService } from "src/app/auth/auth.service"
-import { Subscription } from "rxjs"
+} from '@angular/core'
+import { AuthService } from 'src/app/auth/auth.service'
+import { Subscription } from 'rxjs'
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() sidenavToggle = new EventEmitter<void>()

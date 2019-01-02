@@ -1,17 +1,55 @@
 <section class="login-form" class="mat-typography">
-  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #inputForm="ngForm" (ngSubmit)="onSubmit(inputForm)">
+  <form
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+    #inputForm="ngForm"
+    (ngSubmit)="onSubmit(inputForm)"
+  >
     <h1>Login</h1>
     <mat-form-field>
-      <input placeholder="Your email" matInput type="email" ngModel #e="ngModel" name="emailInput" required email>
-      <mat-hint align="end">This is the email you used when signing up</mat-hint>
-      <mat-error *ngIf="e.hasError('email')">This is not a valid email</mat-error>
-      <mat-error *ngIf="e.hasError('required')">Field cannot be empty!</mat-error>
+      <input
+        placeholder="Your email"
+        matInput
+        type="text"
+        ngModel
+        #e="ngModel"
+        name="emailInput"
+        required
+        email
+      />
+      <mat-hint align="end"
+        >This is the email you used when signing up</mat-hint
+      >
+      <mat-error *ngIf="e.hasError('email')"
+        >This is not a valid email</mat-error
+      >
+      <mat-error *ngIf="e.hasError('required')"
+        >Field cannot be empty!</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
-      <input #pass="ngModel" ngModel required placeholder="Your password" matInput type="password" name="passwordInput">
+      <input
+        #pass="ngModel"
+        ngModel
+        required
+        placeholder="Your password"
+        matInput
+        type="password"
+        name="passwordInput"
+      />
       <mat-hint align="end">You only have 3 chances...</mat-hint>
-      <mat-error *ngIf="pass.hasError('required')">Password should not be empty</mat-error>
+      <mat-error *ngIf="pass.hasError('required')"
+        >Password should not be empty</mat-error
+      >
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="inputForm.invalid">Submit</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="inputForm.invalid"
+    >
+      Submit
+    </button>
   </form>
 </section>

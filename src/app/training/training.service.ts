@@ -1,19 +1,49 @@
 import { Exercise } from './exercise.model'
 import { Subject } from 'rxjs'
+import { Injectable, OnInit, OnDestroy } from '@angular/core'
+import { AngularFirestore } from 'angularfire2/firestore'
+import { map } from 'rxjs/operators'
 
-export class TrainingService {
+@Injectable()
+export class TrainingService implements OnInit, OnDestroy {
   private runningExercise: Exercise
   private exercises: Exercise[] = []
   changeExercise = new Subject<Exercise>()
-  private availableExercises: Exercise[] = [
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
-    { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
-  ]
+  private availableExercises: Exercise[] = []
+  changedExercises = new Subject<Exercise[]>()
 
-  getAvailableExercises() {
-    return this.availableExercises.slice()
+  constructor(private db: AngularFirestore) {}
+
+  ngOnInit(): void {
+    console.log('TrainingService onInit...')
+  }
+  ngOnDestroy(): void {
+    console.log('TrainingService onDestroy...')
+  }
+
+  fetchAvailableExercises() {
+    return this.db
+      .collection<Exercise>('availableExercises')
+      .snapshotChanges()
+      .pipe(
+        map(docArray => {
+          return docArray.map(doc => {
+            const ex: Exercise = {
+              id: doc.payload.doc.id,
+              name: doc.payload.doc.data().name,
+              calories: doc.payload.doc.data().calories,
+              duration: doc.payload.doc.data().duration
+            }
+            return ex
+          })
+        })
+      )
+      .subscribe((exercises: Exercise[]) => {
+        console.log(exercises)
+
+        this.availableExercises = exercises
+        this.changedExercises.next(this.availableExercises)
+      })
   }
 
   /**
