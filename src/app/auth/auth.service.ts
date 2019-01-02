@@ -4,13 +4,14 @@ import { Subject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { AngularFireAuth } from 'angularfire2/auth'
+import { TrainingService } from 'src/app/training/training.service';
 
 @Injectable()
 export class AuthService {
   authChange = new Subject<boolean>()
   private isAuthenticated = false
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, private afAuth: AngularFireAuth, private traininService: TrainingService) {}
 
   private onSuccessfulLogin() {
     this.isAuthenticated = true
@@ -45,6 +46,7 @@ export class AuthService {
   }
 
   logout() {
+    this.traininService.cancelSubscriptions()
     this.afAuth.auth.signOut()
     this.isAuthenticated = false
     this.authChange.next(false)
