@@ -16,7 +16,6 @@ export class TrainingComponent implements OnInit, OnDestroy {
     this.exerciseSubscription = this.trainingService.changeExercise.subscribe(
       ex => {
         if (ex) {
-          console.log(ex)
           this.trainingOngoing = true
         } else {
           this.trainingOngoing = false

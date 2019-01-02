@@ -5,7 +5,7 @@ import { AngularFirestore } from 'angularfire2/firestore'
 import { map } from 'rxjs/operators'
 
 @Injectable()
-export class TrainingService implements OnInit, OnDestroy {
+export class TrainingService {
   private runningExercise: Exercise
   private exercises: Exercise[] = []
   changeExercise = new Subject<Exercise>()
@@ -13,13 +13,6 @@ export class TrainingService implements OnInit, OnDestroy {
   changedExercises = new Subject<Exercise[]>()
 
   constructor(private db: AngularFirestore) {}
-
-  ngOnInit(): void {
-    console.log('TrainingService onInit...')
-  }
-  ngOnDestroy(): void {
-    console.log('TrainingService onDestroy...')
-  }
 
   fetchAvailableExercises() {
     return this.db
@@ -39,10 +32,8 @@ export class TrainingService implements OnInit, OnDestroy {
         })
       )
       .subscribe((exercises: Exercise[]) => {
-        console.log(exercises)
-
         this.availableExercises = exercises
-        this.changedExercises.next(this.availableExercises)
+        this.changedExercises.next([...this.availableExercises])
       })
   }
 
@@ -65,7 +56,7 @@ export class TrainingService implements OnInit, OnDestroy {
   }
 
   completeExercise() {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       date: new Date(),
       state: 'completed'
@@ -75,7 +66,7 @@ export class TrainingService implements OnInit, OnDestroy {
   }
 
   cancelExercise(progress: number) {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       duration: (this.runningExercise.duration * progress) / 100,
       calories: (this.runningExercise.calories * progress) / 100,
@@ -84,5 +75,9 @@ export class TrainingService implements OnInit, OnDestroy {
     })
     this.runningExercise = null
     this.changeExercise.next(null)
+  }
+
+  private addDataToDatabase(exercise: Exercise) {
+    this.db.collection('finishedExercises').add(exercise)
   }
 }
