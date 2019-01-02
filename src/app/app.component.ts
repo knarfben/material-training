@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    // no need to unsubscribe since this is a app lifetime subscription
     this.authService.initAuthListener()
   }
 }
