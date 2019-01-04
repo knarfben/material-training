@@ -58,8 +58,10 @@
       mat-raised-button
       color="primary"
       [disabled]="f.invalid"
+      *ngIf="!spinMe"
     >
       Submit
     </button>
+    <mat-spinner *ngIf="spinMe"></mat-spinner>
   </form>
 </section>
