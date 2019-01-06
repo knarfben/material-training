@@ -5,7 +5,7 @@
       <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
     </mat-card-header>
     <mat-card-content fxLayoutAlign="center">
-      <mat-form-field>
+      <mat-form-field [style.display]="!spinMe ? 'block' : 'none'">
         <mat-select
           placeholder="Select torture"
           ngModel
@@ -20,12 +20,15 @@
           >
         </mat-select>
       </mat-form-field>
+      <mat-spinner *ngIf="spinMe"> </mat-spinner>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="center">
       <button
+        [style.display]="!spinMe ? 'block' : 'none'"
         type="submit"
         (click)="onStartTraining()"
-        mat-button
+        mat-raised-button
+        color="primary"
         [disabled]="tortureSelector.invalid"
       >
         Start
