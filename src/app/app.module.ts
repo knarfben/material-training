@@ -13,9 +13,7 @@ import { StopTrainingComponent } from './training/current-training/stop-training
 import { AuthService } from './auth/auth.service'
 import { TrainingService } from './training/training.service'
 import { AngularFireModule } from 'angularfire2'
-import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { environment } from '../environments/environment'
-import { AngularFireAuthModule } from 'angularfire2/auth'
 import { UIService } from './shared/ui.service'
 import { AuthModule } from './auth/auth.module'
 import { TrainingModule } from './training/training.module'
@@ -23,11 +21,9 @@ import { TrainingModule } from './training/training.module'
 @NgModule({
   declarations: [
     AppComponent,
-
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent,
-    StopTrainingComponent
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -36,13 +32,10 @@ import { TrainingModule } from './training/training.module'
     MaterialModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
     AuthModule,
     TrainingModule
   ],
   providers: [AuthService, TrainingService, UIService],
-  bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

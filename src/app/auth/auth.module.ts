@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MaterialModule } from '../material.module'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { LoginReactiveComponent } from './login-reactive/login-reactive.component'
+import { AngularFireAuthModule } from 'angularfire2/auth'
 
 @NgModule({
   declarations: [SignupComponent, LoginComponent, LoginReactiveComponent],
@@ -14,7 +15,8 @@ import { LoginReactiveComponent } from './login-reactive/login-reactive.componen
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireAuthModule
   ],
   exports: []
 })
