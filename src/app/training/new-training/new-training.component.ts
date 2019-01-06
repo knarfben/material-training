@@ -21,27 +21,22 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('Beginning of ngInit spinMe = ' + this.spinMe)
-
-    // this.dataLoadingSubs = this.uiService.loadingStateChanged.subscribe(
-    //   isLoading => {
-    //     this.spinMe = isLoading
-    //   }
-    // )
-    // this.uiService.loadingStateChanged.next(true)
+    this.dataLoadingSubs = this.uiService.loadingStateChanged.subscribe(
+      isLoading => {
+        this.spinMe = isLoading
+      }
+    )
     this.changedExercisesSubscription = this.trainingService.changedExercises.subscribe(
       exs => {
         this.exercises = exs
-        this.spinMe = false
-        // this.uiService.loadingStateChanged.next(false)
       }
     )
     this.trainingService.fetchAvailableExercises()
-    console.log('End of ngInit spinMe = ' + this.spinMe)
   }
 
   ngOnDestroy() {
     this.changedExercisesSubscription.unsubscribe()
+    this.dataLoadingSubs.unsubscribe()
   }
 
   onStartTraining() {
