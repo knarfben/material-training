@@ -27,6 +27,8 @@ export class TrainingService {
         .pipe(
           map(docArray => {
             return docArray.map(doc => {
+              // throw new Error()
+
               const ex: Exercise = {
                 id: doc.payload.doc.id,
                 name: doc.payload.doc.data().name,
@@ -37,11 +39,22 @@ export class TrainingService {
             })
           })
         )
-        .subscribe((exercises: Exercise[]) => {
-          this.uiService.loadingStateChanged.next(false)
-          this.availableExercises = exercises
-          this.changedExercises.next([...this.availableExercises])
-        })
+        .subscribe(
+          (exercises: Exercise[]) => {
+            this.uiService.loadingStateChanged.next(false)
+            this.availableExercises = exercises
+            this.changedExercises.next([...this.availableExercises])
+          },
+          error => {
+            this.uiService.loadingStateChanged.next(false)
+            this.uiService.showSnackbar(
+              'Could not fetch exercices, please try again later!',
+              null,
+              3000
+            )
+            this.changeExercise.next(null)
+          }
+        )
     )
   }
 
