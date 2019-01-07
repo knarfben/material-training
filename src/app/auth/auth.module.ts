@@ -8,10 +8,16 @@ import { FlexLayoutModule } from '@angular/flex-layout'
 import { LoginReactiveComponent } from './login-reactive/login-reactive.component'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { SharedModule } from '../shared/share.module'
+import { AuthRoutingModule } from './auth-routing.module'
 
 @NgModule({
   declarations: [SignupComponent, LoginComponent, LoginReactiveComponent],
-  imports: [ReactiveFormsModule, AngularFireAuthModule, SharedModule],
+  imports: [
+    ReactiveFormsModule,
+    AngularFireAuthModule,
+    SharedModule,
+    AuthRoutingModule
+  ],
   exports: []
 })
 export class AuthModule {}

@@ -10,6 +10,7 @@ import { StopTrainingComponent } from './current-training/stop-training.componen
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { SharedModule } from '../shared/share.module'
+import { TrainingRoutingModule } from './training-routing.module'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { SharedModule } from '../shared/share.module'
     PastTrainingsComponent,
     StopTrainingComponent
   ],
-  imports: [SharedModule, AngularFirestoreModule],
+  imports: [SharedModule, AngularFirestoreModule, TrainingRoutingModule],
   exports: [],
   entryComponents: [StopTrainingComponent]
 })
