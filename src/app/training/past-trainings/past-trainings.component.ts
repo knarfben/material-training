@@ -36,7 +36,9 @@ export class PastTrainingsComponent
   }
 
   ngOnDestroy() {
-    this.finishedExercisesSubscription.unsubscribe()
+    if (this.finishedExercisesSubscription) {
+      this.finishedExercisesSubscription.unsubscribe()
+    }
   }
 
   ngAfterViewInit(): void {

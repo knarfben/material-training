@@ -113,8 +113,10 @@ export class TrainingService {
   }
 
   cancelSubscriptions() {
-    this.fbSubs.forEach(element => {
-      element.unsubscribe()
-    })
+    this.fbSubs
+      .filter(e => e !== null)
+      .forEach(element => {
+        element.unsubscribe()
+      })
   }
 }

@@ -4,14 +4,14 @@ import {
   Output,
   EventEmitter,
   OnDestroy
-} from "@angular/core"
-import { AuthService } from "src/app/auth/auth.service"
-import { Subscription } from "rxjs"
+} from '@angular/core'
+import { AuthService } from 'src/app/auth/auth.service'
+import { Subscription } from 'rxjs'
 
 @Component({
-  selector: "app-sidenav-list",
-  templateUrl: "./sidenav-list.component.html",
-  styleUrls: ["./sidenav-list.component.scss"]
+  selector: 'app-sidenav-list',
+  templateUrl: './sidenav-list.component.html',
+  styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent implements OnInit, OnDestroy {
   @Output() sidenavClose = new EventEmitter<void>()
@@ -28,7 +28,9 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.authSubscription.unsubscribe()
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe()
+    }
   }
   /**
    * onClose
