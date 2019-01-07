@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'login-reactive', component: LoginReactiveComponent },
   {
     path: 'training',
-    loadChildren: './src/app'
+    loadChildren: './training/training.module#TrainingModule',
+    canLoad: [AuthGuard]
   }
 ]
 
