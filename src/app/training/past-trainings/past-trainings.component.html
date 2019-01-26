@@ -1,5 +1,10 @@
-<div fxLayoutAlign="center center">
-  <mat-form-field fxFlex="40%">
+<div fxLayoutAlign="center center" fxLayoutGap="20px">
+  <div>
+    <button mat-raised-button (click)="toggleColumns()">
+      {{ currentStation }}
+    </button>
+  </div>
+  <mat-form-field>
     <input
       matInput
       type="text"
@@ -9,6 +14,14 @@
   </mat-form-field>
 </div>
 <mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="bella">
+    <mat-header-cell *matHeaderCellDef>Bella</mat-header-cell>
+    <mat-cell *matCellDef="let o = odd">
+      <ng-container *ngIf="o" i18n="odd column|I'm a bizarre thing to translate"
+        >I'm so odd...</ng-container
+      >
+    </mat-cell>
+  </ng-container>
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
     <mat-cell *matCellDef="let element">{{
@@ -17,7 +30,9 @@
   </ng-container>
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    <mat-cell *matCellDef="let frank; let l = last">{{
+      frank.name + l
+    }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="calories">
     <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -44,4 +59,5 @@
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 
-<mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 3, 5, 7]"> </mat-paginator>
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 3, 5, 100]">
+</mat-paginator>

@@ -16,6 +16,7 @@ import { environment } from '../environments/environment'
 import { UIService } from './shared/ui.service'
 import { AuthModule } from './auth/auth.module'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { ConfigService } from './shared/config.service'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
     AuthModule,
     AngularFirestoreModule
   ],
-  providers: [AuthService, TrainingService, UIService],
+  providers: [AuthService, TrainingService, UIService, ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

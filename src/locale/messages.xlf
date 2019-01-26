@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="9d0ee546bfd9fd2b9bd60ac864eae673d399dcb9" datatype="html">
+        <source>I&apos;m so odd...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/training/past-trainings/past-trainings.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description">I&apos;m a bizarre thing to translate</note>
+        <note priority="1" from="meaning">odd column</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
