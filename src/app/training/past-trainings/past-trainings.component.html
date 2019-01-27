@@ -12,6 +12,21 @@
       placeholder="Filter"
     />
   </mat-form-field>
+  <mat-form-field>
+    <mat-select
+      placeholder="Filter exercises"
+      ngModel
+      #exercisesFilter="ngModel"
+      (selectionChange)="filterTable($event.value?.join('|'))"
+      multiple
+    >
+      <!-- <mat-option>None</mat-option> -->
+      <mat-option *ngFor="let exercise of exercises" [value]="exercise.name">{{
+        exercise.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  {{ dataSource.filteredData.length }} matches !!
 </div>
 <mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="bella">
@@ -30,9 +45,7 @@
   </ng-container>
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-    <mat-cell *matCellDef="let frank; let l = last">{{
-      frank.name + l
-    }}</mat-cell>
+    <mat-cell *matCellDef="let frank">{{ frank.name }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="calories">
     <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -56,7 +69,10 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="clickTheRow(row)"
+  ></mat-row>
 </mat-table>
 
 <mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 3, 5, 100]">

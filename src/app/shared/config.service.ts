@@ -7,7 +7,7 @@ export class ConfigService {
       columns: ['bella', 'name', 'duration', 'calories', 'date']
     },
     cdg: {
-      columns: ['name', 'duration', 'calories']
+      columns: ['name', 'duration', 'calories', 'date']
     },
     cai: {
       columns: ['name', 'duration', 'bella']

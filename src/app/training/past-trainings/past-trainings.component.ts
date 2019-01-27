@@ -10,6 +10,7 @@ import { Exercise } from '../exercise.model'
 import { TrainingService } from '../training.service'
 import { Subscription } from 'rxjs'
 import { ConfigService } from 'src/app/shared/config.service'
+import { UIService } from 'src/app/shared/ui.service'
 
 @Component({
   selector: 'app-past-trainings',
@@ -27,9 +28,15 @@ export class PastTrainingsComponent
 
   @ViewChild(MatSort) sort: MatSort
   @ViewChild(MatPaginator) paginator: MatPaginator
+  dataLoadingSubs: Subscription
+  spinMe: boolean
+  changedExercisesSubscription: Subscription
+  exercises: Exercise[]
+  selectedExercise: string
 
   constructor(
     private trainingService: TrainingService,
+    private uiService: UIService,
     private config: ConfigService
   ) {}
 
@@ -39,18 +46,39 @@ export class PastTrainingsComponent
         this.dataSource.data = exercises
       }
     )
+    this.dataSource.filterPredicate = function(data, filter: string): boolean {
+      console.log('Filter predicate called here with ' + filter)
+      console.log('data.name = ' + data.name)
+
+      const ret = filter.includes(data.name)
+      console.log('predicate returns ' + ret)
+
+      return ret
+    }
     this.trainingService.fetchCompletedOrCancelledExercises()
     this.stations = this.config.getStations()
-    this.currentStation = this.stations[0]
+    this.currentStation = this.stations[1]
     this.displayedColumns = this.config.getColumnsForStation(
       this.currentStation
     )
+    this.dataLoadingSubs = this.uiService.loadingStateChanged.subscribe(
+      isLoading => {
+        this.spinMe = isLoading
+      }
+    )
+    this.changedExercisesSubscription = this.trainingService.changedExercises.subscribe(
+      exs => {
+        this.exercises = exs
+      }
+    )
+    this.trainingService.fetchAvailableExercises()
   }
 
   ngOnDestroy() {
     if (this.finishedExercisesSubscription) {
       this.finishedExercisesSubscription.unsubscribe()
     }
+    this.dataLoadingSubs.unsubscribe()
   }
 
   ngAfterViewInit(): void {
@@ -58,9 +86,9 @@ export class PastTrainingsComponent
     this.dataSource.paginator = this.paginator
   }
 
-  doFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase()
-  }
+  // doFilter(filterValue: string) {
+  //   this.dataSource.filter = filterValue.trim().toLowerCase()
+  // }
 
   toggleColumns() {
     console.log('toggleColumns BEFORE: ' + this.currentStation)
@@ -73,5 +101,18 @@ export class PastTrainingsComponent
       this.currentStation
     )
     console.log('new columns ' + this.displayedColumns)
+  }
+
+  filterTable(filterValue: string) {
+    this.dataSource.filter = filterValue
+  }
+
+  clickTheRow(row: Exercise) {
+    console.log(row)
+    this.uiService.showSnackbar(
+      `Exercise clicked! Calories ${row.calories}`,
+      null,
+      3000
+    )
   }
 }
