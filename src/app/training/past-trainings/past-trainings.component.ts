@@ -5,12 +5,18 @@ import {
   AfterViewInit,
   OnDestroy
 } from '@angular/core'
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material'
+import {
+  MatTableDataSource,
+  MatSort,
+  MatPaginator,
+  MatDialog
+} from '@angular/material'
 import { Exercise } from '../exercise.model'
 import { TrainingService } from '../training.service'
 import { Subscription } from 'rxjs'
 import { ConfigService } from 'src/app/shared/config.service'
 import { UIService } from 'src/app/shared/ui.service'
+import { BasicDialogComponent } from 'src/app/basic-dialog/basic-dialog.component'
 
 @Component({
   selector: 'app-past-trainings',
@@ -37,7 +43,8 @@ export class PastTrainingsComponent
   constructor(
     private trainingService: TrainingService,
     private uiService: UIService,
-    private config: ConfigService
+    private config: ConfigService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -107,12 +114,24 @@ export class PastTrainingsComponent
     this.dataSource.filter = filterValue
   }
 
-  clickTheRow(row: Exercise) {
-    console.log(row)
-    this.uiService.showSnackbar(
-      `Exercise clicked! Calories ${row.calories}`,
-      null,
-      3000
-    )
+  // clickTheRow(row: Exercise) {
+  //   console.log(row)
+  //   this.uiService.showSnackbar(
+  //     `Exercise clicked! Calories ${row.calories}`,
+  //     null,
+  //     3000
+  //   )
+  // }
+
+  clickTheRow(row: Exercise): void {
+    const dialogRef = this.dialog.open(BasicDialogComponent, {
+      width: '250px',
+      data: { data1: row.name, data2: row.duration }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed')
+      // this.animal = result;
+    })
   }
 }

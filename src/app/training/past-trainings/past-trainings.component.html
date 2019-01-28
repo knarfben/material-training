@@ -33,7 +33,9 @@
     <mat-header-cell *matHeaderCellDef>Bella</mat-header-cell>
     <mat-cell *matCellDef="let o = odd">
       <ng-container *ngIf="o" i18n="odd column|I'm a bizarre thing to translate"
-        >I'm so odd...</ng-container
+        ><mat-chip-list>
+          <mat-chip color="warn" selected> I'm so odd... </mat-chip>
+        </mat-chip-list></ng-container
       >
     </mat-cell>
   </ng-container>

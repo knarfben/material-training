@@ -16,14 +16,16 @@ import { environment } from '../environments/environment'
 import { UIService } from './shared/ui.service'
 import { AuthModule } from './auth/auth.module'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
-import { ConfigService } from './shared/config.service'
+import { ConfigService } from './shared/config.service';
+import { BasicDialogComponent } from './basic-dialog/basic-dialog.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    BasicDialogComponent
   ],
   imports: [
     BrowserModule,
