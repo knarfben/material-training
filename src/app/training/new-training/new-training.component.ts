@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { TrainingService } from '../training.service'
-import { Subscription } from 'rxjs'
+import { Subscription, Observable } from 'rxjs'
 import { Exercise } from '../exercise.model'
 import { UIService } from 'src/app/shared/ui.service'
+import { Store } from '@ngrx/store'
+import * as fromApp from '../../app.reducer'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-new-training',
@@ -14,18 +17,21 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   exercises: Exercise[]
   changedExercisesSubscription: Subscription
   dataLoadingSubs: Subscription
-  spinMe = true
+  spinMe$: Observable<boolean>
+
   constructor(
     private trainingService: TrainingService,
-    private uiService: UIService
+    private uiService: UIService,
+    private store: Store<{ ui: fromApp.State }>
   ) {}
 
   ngOnInit() {
-    this.dataLoadingSubs = this.uiService.loadingStateChanged.subscribe(
-      isLoading => {
-        this.spinMe = isLoading
-      }
-    )
+    this.spinMe$ = this.store.pipe(map(state => state.ui.isLoading))
+    // this.dataLoadingSubs = this.uiService.loadingStateChanged.subscribe(
+    //   isLoading => {
+    //     this.spinMe = isLoading
+    //   }
+    // )
     this.changedExercisesSubscription = this.trainingService.changedExercises.subscribe(
       exs => {
         this.exercises = exs
@@ -41,9 +47,6 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.changedExercisesSubscription) {
       this.changedExercisesSubscription.unsubscribe()
-    }
-    if (this.dataLoadingSubs) {
-      this.dataLoadingSubs.unsubscribe()
     }
   }
 

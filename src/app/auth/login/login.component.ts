@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { AuthService } from '../auth.service'
-import { Subscription } from 'rxjs'
+import { Subscription, Observable } from 'rxjs'
 import { UIService } from 'src/app/shared/ui.service'
+import { map } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
 import * as fromApp from '../../app.reducer'
 
@@ -11,8 +12,8 @@ import * as fromApp from '../../app.reducer'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  spinMe = false
+export class LoginComponent implements OnInit {
+  spinMe$: Observable<boolean>
   private dataLoadingSubscription: Subscription
 
   constructor(
@@ -22,19 +23,19 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.store.subscribe(data => console.log(data))
-    this.dataLoadingSubscription = this.uiService.loadingStateChanged.subscribe(
-      loading => {
-        this.spinMe = loading
-      }
-    )
+    this.spinMe$ = this.store.pipe(map(state => state.ui.isLoading))
+    // this.dataLoadingSubscription = this.uiService.loadingStateChanged.subscribe(
+    //   loading => {
+    //     this.spinMe = loading
+    //   }
+    // )
   }
 
-  ngOnDestroy(): void {
-    if (this.dataLoadingSubscription) {
-      this.dataLoadingSubscription.unsubscribe()
-    }
-  }
+  // ngOnDestroy(): void {
+  //   if (this.dataLoadingSubscription) {
+  //     this.dataLoadingSubscription.unsubscribe()
+  //   }
+  // }
 
   onSubmit(form: NgForm) {
     this.authService.login({

@@ -48,10 +48,10 @@
       color="primary"
       type="submit"
       [disabled]="inputForm.invalid"
-      *ngIf="!spinMe"
+      *ngIf="!(spinMe$ | async)"
     >
       Submit
     </button>
-    <mat-spinner *ngIf="spinMe"></mat-spinner>
+    <mat-spinner *ngIf="(spinMe$ | async)"></mat-spinner>
   </form>
 </section>
