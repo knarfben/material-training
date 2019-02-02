@@ -19,6 +19,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { ConfigService } from './shared/config.service'
 import { BasicDialogComponent } from './basic-dialog/basic-dialog.component'
 import { FormsModule } from '@angular/forms'
+import { StoreModule } from '@ngrx/store'
+import { appReducer } from './app.reducer'
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { FormsModule } from '@angular/forms'
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
     AngularFirestoreModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot({ ui: appReducer })
   ],
   entryComponents: [BasicDialogComponent],
   providers: [AuthService, TrainingService, UIService, ConfigService],
