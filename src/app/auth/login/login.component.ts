@@ -1,11 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { AuthService } from '../auth.service'
-import { Subscription, Observable } from 'rxjs'
-import { UIService } from 'src/app/shared/ui.service'
-import { map } from 'rxjs/operators'
+import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import * as fromApp from '../../app.reducer'
+import * as fromRoot from '../../app.reducer'
 
 @Component({
   selector: 'app-login',
@@ -14,28 +12,15 @@ import * as fromApp from '../../app.reducer'
 })
 export class LoginComponent implements OnInit {
   spinMe$: Observable<boolean>
-  private dataLoadingSubscription: Subscription
 
   constructor(
-    private store: Store<{ ui: fromApp.State }>,
-    private authService: AuthService,
-    private uiService: UIService
+    private store: Store<fromRoot.State>,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.spinMe$ = this.store.pipe(map(state => state.ui.isLoading))
-    // this.dataLoadingSubscription = this.uiService.loadingStateChanged.subscribe(
-    //   loading => {
-    //     this.spinMe = loading
-    //   }
-    // )
+    this.spinMe$ = this.store.select(fromRoot.getIsLoading)
   }
-
-  // ngOnDestroy(): void {
-  //   if (this.dataLoadingSubscription) {
-  //     this.dataLoadingSubscription.unsubscribe()
-  //   }
-  // }
 
   onSubmit(form: NgForm) {
     this.authService.login({

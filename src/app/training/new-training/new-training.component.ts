@@ -4,7 +4,7 @@ import { Subscription, Observable } from 'rxjs'
 import { Exercise } from '../exercise.model'
 import { UIService } from 'src/app/shared/ui.service'
 import { Store } from '@ngrx/store'
-import * as fromApp from '../../app.reducer'
+import * as fromRoot from '../../app.reducer'
 import { map } from 'rxjs/operators'
 
 @Component({
@@ -22,11 +22,11 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   constructor(
     private trainingService: TrainingService,
     private uiService: UIService,
-    private store: Store<{ ui: fromApp.State }>
+    private store: Store<fromRoot.State>
   ) {}
 
   ngOnInit() {
-    this.spinMe$ = this.store.pipe(map(state => state.ui.isLoading))
+    this.spinMe$ = this.store.select(fromRoot.getIsLoading)
     // this.dataLoadingSubs = this.uiService.loadingStateChanged.subscribe(
     //   isLoading => {
     //     this.spinMe = isLoading

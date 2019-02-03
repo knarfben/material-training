@@ -22,7 +22,6 @@
           >
         </mat-select>
       </mat-form-field>
-      <mat-spinner *ngIf="(spinMe$ | async)"> </mat-spinner>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="center">
       <button
@@ -35,14 +34,15 @@
       >
         Start
       </button>
-      <button
+      <mat-spinner *ngIf="(spinMe$ | async)"> </mat-spinner>
+      <!-- <button
         (click)="fetchExercises()"
         mat-icon-button
         color="primary"
         [style.display]="!exercises ? 'block' : 'none'"
       >
         <mat-icon>refresh</mat-icon>
-      </button>
+      </button> -->
     </mat-card-actions>
   </mat-card>
 </section>

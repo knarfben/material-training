@@ -20,7 +20,7 @@ import { ConfigService } from './shared/config.service'
 import { BasicDialogComponent } from './basic-dialog/basic-dialog.component'
 import { FormsModule } from '@angular/forms'
 import { StoreModule } from '@ngrx/store'
-import { appReducer } from './app.reducer'
+import { reducers } from './app.reducer'
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { appReducer } from './app.reducer'
     AuthModule,
     AngularFirestoreModule,
     FormsModule,
-    StoreModule.forRoot({ ui: appReducer })
+    StoreModule.forRoot(reducers)
   ],
   entryComponents: [BasicDialogComponent],
   providers: [AuthService, TrainingService, UIService, ConfigService],
